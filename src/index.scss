@@ -1,0 +1,8 @@
+@import "./assets/styles/variables"; // Use to replace variable of bootstrap library
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~react-table/react-table.css";
+
+// Globally applied SCSS
+@import "./assets/styles/global";
+@import "./assets/styles/custom-table";
+@import "./components/user//Google-Map/map.scss"
