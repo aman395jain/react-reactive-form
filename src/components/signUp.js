@@ -6,21 +6,19 @@ import {
   FieldControl
 } from "react-reactive-form";
 import _ from "lodash";
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 
-import CountryComponent from "./country";
-import StateComponent from "./state";
-
+import checkValidations from "./validations";
+import signUpService from "./signUp_service";
+import CountryList from "./countryComponent";
+import StateList from "./stateListComponent";
+import Citylist from "./cityComponent";
 /* 
-    User sign-up/ Registration Page 
+    User sign-up/ Registration Page.
 */
 
 class signUp extends Component {
   state = {
-    selectedCountry: "",
-    city: [],
-    stateInCountry: []
+    selectedCountry: ""
   };
   registerFormNew = FormBuilder.group({
     firstName: ["", [Validators.required]],
@@ -39,14 +37,26 @@ class signUp extends Component {
     organization: "BMW"
   });
 
-  countrySelectedByComponent = selectedCountry => {
+  onSubmit(e) {
+    this.registerFormNew.value.address.country = this.state.selectedCountry;
+    e.preventDefault();
+    signUpService
+      .postSignUp(this.registerFormNew.value)
+      .then(res => {
+        console.log("success of form submission", res.status);
+      })
+      .catch(err => {
+        console.log(err.status);
+      });
+  }
+
+  getCountry = country => {
     this.setState({
-      selectedCountry: selectedCountry
+      selectedCountry: country
     });
   };
 
   render() {
-    console.log("selectedCountry in render", this.state.selectedCountry);
     return (
       <FieldGroup
         control={this.registerFormNew}
@@ -61,30 +71,81 @@ class signUp extends Component {
                 <div className="row">
                   <FieldControl
                     name="address.country"
-                    render={() => (
+                    render={({ touched, hasError }) => (
                       <div className="col-sm-6">
                         <div className="form-group">
                           <label>Country</label>
-                          <CountryComponent
-                            countrySelected={this.countrySelectedByComponent}
-                          />
+
+                          <CountryList />
+
+                          <div>
+                            <span>
+                              {touched &&
+                                (hasError("required") &&
+                                  checkValidations("Country"))}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     )}
                   />
                   <FieldControl
                     name="address.state"
-                    render={() => (
+                    render={({ handler, touched, hasError }) => (
                       <div className="col-sm-6">
                         <div className="form-group">
                           <label>State</label>
-                          <StateComponent
-                            countryForState={this.state.selectedCountry}
-                          />
+
+                          <StateList />
+                          <div>
+                            <span>
+                              {touched &&
+                                (hasError("required") &&
+                                  checkValidations("State"))}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     )}
                   />
+                </div>
+
+                <div className="row">
+                  <FieldControl
+                    name="address.city"
+                    render={({ handler, touched, hasError }) => (
+                      <div className="col-sm-6">
+                        <div className="form-group">
+                          <label>city</label>
+
+                          <Citylist />
+                          <div>
+                            <span>
+                              {touched &&
+                                (hasError("required") &&
+                                  checkValidations("City"))}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  />
+                </div>
+
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="col-md-12 text-center">
+                      <button
+                        className="btn btn-outline-secondary mr-1"
+                        type="button"
+                      >
+                        Cancel
+                      </button>
+                      <button className="btn btn-danger ml-1" disabled="">
+                        Submit
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>

@@ -31,7 +31,23 @@ const signUpService = {
   },
 
   getCountry: () => {
-    return axios.get("http://www.mocky.io/v2/5c6d4000370000530afa334d");
+    return axios.get(
+      "http://ec2-54-221-159-167.compute-1.amazonaws.com:9001/user-management/usermgmt/country"
+    );
+  },
+  getStateAgainstCountry: countryId => {
+    console.log("in the getStateAgainstCountry", countryId);
+    return axios.get(
+      "http://ec2-54-221-159-167.compute-1.amazonaws.com:9001/user-management/usermgmt/state/{countryId}?countryId=" +
+        countryId
+    );
+  },
+  getCityAgainstState: stateId => {
+    console.log("in the getStateAgainstCountry", stateId);
+    return axios.get(
+      "http://ec2-54-221-159-167.compute-1.amazonaws.com:9001/user-management/usermgmt/city/{stateId}?stateId=" +
+        stateId
+    );
   }
 };
 
