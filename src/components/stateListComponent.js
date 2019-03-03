@@ -27,7 +27,7 @@ class StateList extends Component {
   };
 
   changeState = e => {
-    // this.props.onCountryChange(e.target.value);
+    this.props.onStateChange(e.target.value);
     if (this.state.stateListByCountryId.length > 0) {
       this.state.stateListByCountryId.map(statesFromData => {
         if (statesFromData.name === e.target.value) {

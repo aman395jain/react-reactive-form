@@ -26,9 +26,17 @@ class CityList extends Component {
     }
   };
 
+  changeCity = e => {
+    this.props.onCityChange(e.target.value);
+  };
+
   render() {
     return (
-      <select placeholder="select" className="form-control">
+      <select
+        placeholder="select"
+        className="form-control"
+        onClick={this.changeCity}
+      >
         <option value="-1" key="-1">
           Select City
         </option>

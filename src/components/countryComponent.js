@@ -41,7 +41,7 @@ class Country extends Component {
   // Dispatch the country ID to reducer.
 
   changeCountry = e => {
-    // this.props.onCountryChange(e.target.value);
+    this.props.onCountryChange(e.target.value);
     if (this.state.countryList.length > 0) {
       this.state.countryList.map(country => {
         if (country.name === e.target.value) {

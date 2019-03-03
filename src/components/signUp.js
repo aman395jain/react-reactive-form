@@ -18,7 +18,9 @@ import Citylist from "./cityComponent";
 
 class signUp extends Component {
   state = {
-    selectedCountry: ""
+    selectedCountry: "",
+    selectedState: "",
+    selectedCity: ""
   };
   registerFormNew = FormBuilder.group({
     firstName: ["", [Validators.required]],
@@ -39,6 +41,8 @@ class signUp extends Component {
 
   onSubmit(e) {
     this.registerFormNew.value.address.country = this.state.selectedCountry;
+    this.registerFormNew.value.address.state = this.state.selectedState;
+    this.registerFormNew.value.address.city = this.state.selectedCity;
     e.preventDefault();
     signUpService
       .postSignUp(this.registerFormNew.value)
@@ -50,9 +54,20 @@ class signUp extends Component {
       });
   }
 
-  getCountry = country => {
+  getCountry = countryNameFromCountryComp => {
     this.setState({
-      selectedCountry: country
+      selectedCountry: countryNameFromCountryComp
+    });
+  };
+
+  getState = stateNameFromStateComp => {
+    this.setState({
+      selectedState: stateNameFromStateComp
+    });
+  };
+  getCity = cityNameFromCityComp => {
+    this.setState({
+      selectedCity: cityNameFromCityComp
     });
   };
 
@@ -76,7 +91,7 @@ class signUp extends Component {
                         <div className="form-group">
                           <label>Country</label>
 
-                          <CountryList />
+                          <CountryList onCountryChange={this.getCountry} />
 
                           <div>
                             <span>
@@ -96,7 +111,7 @@ class signUp extends Component {
                         <div className="form-group">
                           <label>State</label>
 
-                          <StateList />
+                          <StateList onStateChange={this.getState} />
                           <div>
                             <span>
                               {touched &&
@@ -118,7 +133,7 @@ class signUp extends Component {
                         <div className="form-group">
                           <label>city</label>
 
-                          <Citylist />
+                          <Citylist onCityChange={this.getCity} />
                           <div>
                             <span>
                               {touched &&
