@@ -1,12 +1,18 @@
 import { combineReducers } from "redux";
-import authReducer from "./authReducer";
+import signUpReducer from "./signUpReducer";
 import countryReducer from "./countryReducer";
 import stateReducer from "./stateReducer";
+import authReducer from "./authReducer";
+import errorReducer from "./errorReducer";
+import countryReducerNew from "./countryReducerNew";
 
 const rootReducer = combineReducers({
-  regUser: authReducer,
+  auth: authReducer,
+  errors: errorReducer,
+  regUser: signUpReducer,
   regCountry: countryReducer,
-  regState: stateReducer
+  regState: stateReducer,
+  regCountryNew: countryReducerNew
 });
 
 export default rootReducer;

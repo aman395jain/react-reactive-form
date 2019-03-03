@@ -11,19 +11,13 @@ class Country extends Component {
     countryList: []
   };
 
-  componentWillMount() {
-    signUpService
-      .getCountry()
-      .then(res => {
-        this.setState({
-          countryList: res.data.map(data => {
-            return data;
-          })
-        });
+  async componentWillMount() {
+    let res = await signUpService.getCountry();
+    this.setState({
+      countryList: res.data.map(data => {
+        return data;
       })
-      .catch(err => {
-        console.log(err);
-      });
+    });
   }
 
   renderCountries(countries) {
