@@ -40,7 +40,8 @@ class signUp extends Component {
   });
 
   onSubmit(e) {
-    this.registerFormNew.value.address.country = this.state.selectedCountry;
+    // this.registerFormNew.value.address.country = this.state.selectedCountry;
+    console.log("country value", this.registerFormNew.value.address.country);
     this.registerFormNew.value.address.state = this.state.selectedState;
     this.registerFormNew.value.address.city = this.state.selectedCity;
     e.preventDefault();
@@ -65,6 +66,7 @@ class signUp extends Component {
       selectedState: stateNameFromStateComp
     });
   };
+
   getCity = cityNameFromCityComp => {
     this.setState({
       selectedCity: cityNameFromCityComp
@@ -86,12 +88,14 @@ class signUp extends Component {
                 <div className="row">
                   <FieldControl
                     name="address.country"
-                    render={({ touched, hasError }) => (
+                    render={({ handler, touched, hasError }) => (
                       <div className="col-sm-6">
                         <div className="form-group">
                           <label>Country</label>
-
-                          <CountryList onCountryChange={this.getCountry} />
+                          <CountryList
+                            onCountryChange={this.getCountry}
+                            {...handler()}
+                          />
 
                           <div>
                             <span>

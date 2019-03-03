@@ -1,4 +1,4 @@
-import { SET_REGISTER_COUNTRY, SET_REGISTER_STATE } from "../actions/types";
+import { SET_REGISTER_COUNTRY } from "../actions/types";
 
 const initialState = { isAuthentication: false, regCountry: {} };
 
