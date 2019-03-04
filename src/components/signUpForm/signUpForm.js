@@ -9,59 +9,55 @@ import Select from "./Select";
 import signUpService from "../signUp_service";
 
 class SignUpFormComponent extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      formIsValid: false,
-      formControls: {
-        name: {
-          value: "",
-          placeholder: "What is your name",
-          valid: false,
-          validationRules: {
-            minLength: 4,
-            isRequired: true
-          },
-          touched: false
+  state = {
+    formIsValid: false,
+    formControls: {
+      name: {
+        value: "",
+        placeholder: "What is your name",
+        valid: false,
+        validationRules: {
+          minLength: 4,
+          isRequired: true
         },
-        country: {
-          value: "",
-          placeholder: "What is your country",
-          valid: false,
-          touched: false,
-          validationRules: {
-            isRequired: true
-          },
-          options: []
+        touched: false
+      },
+      country: {
+        value: "",
+        placeholder: "What is your country",
+        valid: false,
+        touched: false,
+        validationRules: {
+          isRequired: true
         },
-        formState: {
-          value: "",
-          placeholder: "What is your state",
-          valid: false,
-          touched: false,
-          validationRules: {
-            isRequired: true
-          },
-          options: [1, 2, 3, 4, 5]
-        }
+        options: [1, 2, 3, 4, 5]
+      },
+      formState: {
+        value: "",
+        placeholder: "What is your state",
+        valid: false,
+        touched: false,
+        validationRules: {
+          isRequired: true
+        },
+        options: [1, 2, 3, 4, 5]
       }
-    };
-  }
+    }
+  };
 
-  componentDidMount() {
-    signUpService.getCountry().then(res => {
-      this.setState({
-        formControls: {
-          country: {
-            options: res.data.map(countryValue => {
-              return countryValue;
-            })
-          }
-        }
-      });
-    });
-  }
+  // componentWillMount() {
+  //   signUpService.getCountry().then(res => {
+  //     this.setState({
+  //       formControls: {
+  //         country: {
+  //           options: res.data.map(countryValue => {
+  //             return countryValue;
+  //           })
+  //         }
+  //       }
+  //     });
+  //   });
+  // }
 
   changeHandler = event => {
     const name = event.target.name;
@@ -103,7 +99,7 @@ class SignUpFormComponent extends Component {
   };
 
   render() {
-    console.log("state value", this.state.formControls.country);
+    console.log("state value", this.state.formControls.formState);
     return (
       <div className="App">
         <Select
@@ -113,8 +109,17 @@ class SignUpFormComponent extends Component {
           touched={this.state.formControls.country.touched}
           valid={this.state.formControls.country.valid}
           onChange={this.changeHandler}
+          placeholder={this.state.formControls.country.placeholder}
         />
-
+        <Select
+          name="formState"
+          value={this.state.formControls.formState.value}
+          options={this.state.formControls.formState.options}
+          touched={this.state.formControls.formState.touched}
+          valid={this.state.formControls.formState.valid}
+          onChange={this.changeHandler}
+          placeholder={this.state.formControls.formState.placeholder}
+        />
         <button
           onClick={this.formSubmitHandler}
           disabled={!this.state.formIsValid}

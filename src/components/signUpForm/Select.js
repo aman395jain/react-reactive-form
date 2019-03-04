@@ -8,23 +8,24 @@ const Select = props => {
   }
 
   let renderOption = () => {
-    if (props.name === "country") {
-      return props.options.map((option, i) => (
-        <option value={option.countryId} key={i}>
-          {option.name}
-        </option>
-      ));
-    }
+    console.log("the props value", props);
+    return props.options.map((option, i) => (
+      <option value={option} key={i}>
+        {option}
+      </option>
+    ));
   };
 
   return (
     <div className="form-group">
       <select
+        placeholder={props.placeholder}
         className={formControl}
         value={props.value}
         onChange={props.onChange}
         name={props.name}
       >
+        <option key="-1">{props.placeholder}</option>
         {renderOption()}
       </select>
     </div>

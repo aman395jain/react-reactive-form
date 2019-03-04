@@ -31,9 +31,7 @@ const signUpService = {
   },
 
   getCountry: () => {
-    return axios.get(
-      "http://ec2-54-221-159-167.compute-1.amazonaws.com:9001/user-management/usermgmt/country"
-    );
+    return axios.get("http://www.mocky.io/v2/5c6d4000370000530afa334d");
   },
   getStateAgainstCountry: countryId => {
     console.log("in the getStateAgainstCountry", countryId);
